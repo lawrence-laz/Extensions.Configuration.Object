@@ -1,8 +1,7 @@
 name: Publish to NuGet
-on:
-  push:
-    branches:
-      - master # Default release branch
+on: 
+  workflow_dispatch:
+
 jobs:
   publish:
     name: build, pack & publish
@@ -44,4 +43,3 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           # INCLUDE_SYMBOLS: false
-          
