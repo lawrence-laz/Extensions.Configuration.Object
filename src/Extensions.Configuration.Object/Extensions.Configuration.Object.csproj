@@ -6,6 +6,7 @@
         <Product>Extensions.Configuration.Object</Product>
         <Description>A simple way to add configuration using plain objects.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageId>Extensions.Configuration.Object</PackageId>
         <PackageProjectUrl>https://github.com/lawrence-laz/Extensions.Configuration.Object</PackageProjectUrl>
         <RepositoryUrl>https://github.com/lawrence-laz/Extensions.Configuration.Object</RepositoryUrl>
         <PackageTags>configuration;options;object;extensions</PackageTags>
