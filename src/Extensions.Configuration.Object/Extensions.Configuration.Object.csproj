@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Company>Laurynas Lazauskas</Company>
+        <Product>Extensions.Configuration.Object</Product>
+        <Description>A simple way to add configuration using plain objects.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/lawrence-laz/Extensions.Configuration.Object</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/lawrence-laz/Extensions.Configuration.Object</RepositoryUrl>
+        <PackageTags>configuration;options;object;extensions</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Copyright>Copyright 2020</Copyright>
+        <Version>1.0.0</Version>
+        <RepositoryType>git</RepositoryType>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageIconUrl />
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.8" />
+    </ItemGroup>
+
+</Project>
