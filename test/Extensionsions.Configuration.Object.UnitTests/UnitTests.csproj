@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Extensions.Configuration.AnonymousObject\Extensions.Configuration.Object.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Configuration.Object\Extensions.Configuration.Object.csproj" />
   </ItemGroup>
 
