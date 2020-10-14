@@ -42,12 +42,24 @@ namespace Extensions.Configuration.Object
             {
                 base.Set(currentKey, section.ToString());
             }
-            else if (section.GetType().TryGetFields(out var fields))
+            else
             {
-                foreach (var field in fields)
+                foreach (var field in section.GetType().GetConfigurationFields())
                 {
                     var name = field.GetName();
                     var value = field.GetValue(section);
+
+                    var newKey = string.IsNullOrWhiteSpace(currentKey)
+                        ? name
+                        : $"{currentKey}:{name}";
+
+                    LoadRecursively(newKey, value);
+                }
+
+                foreach (var property in section.GetType().GetConfigurationProperties())
+                {
+                    var name = property.Name;
+                    var value = property.GetValue(section);
 
                     var newKey = string.IsNullOrWhiteSpace(currentKey)
                         ? name

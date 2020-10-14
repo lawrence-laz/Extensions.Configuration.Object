@@ -24,12 +24,20 @@ namespace Extensions.Configuration.Object.Internal
             return field.Name;            
         }
 
-        public static bool TryGetFields(this Type type, out FieldInfo[] fields)
+        public static FieldInfo[] GetConfigurationFields(this Type type)
         {
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            fields = type.GetFields(bindingFlags);
+            var fields = type.GetFields(bindingFlags);
 
-            return fields.Length > 0;
+            return fields;
+        }
+
+        public static PropertyInfo[] GetConfigurationProperties(this Type type)
+        {
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+            var properties = type.GetProperties(bindingFlags);
+
+            return properties;
         }
 
         public static bool IsAnonymous(this Type type)
