@@ -14,7 +14,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Copyright>Copyright 2020</Copyright>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <RepositoryType>git</RepositoryType>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconUrl />
