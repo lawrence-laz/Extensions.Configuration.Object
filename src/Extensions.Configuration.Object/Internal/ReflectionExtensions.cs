@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -26,15 +27,23 @@ namespace Extensions.Configuration.Object.Internal
 
         public static FieldInfo[] GetConfigurationFields(this Type type)
         {
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public  | BindingFlags.NonPublic;
+
             var fields = type.GetFields(bindingFlags);
+
+            if (!type.IsAnonymous())
+            {
+                return fields
+                    .Where(x => !x.IsCompilerGenerated())
+                    .ToArray();
+            }
 
             return fields;
         }
 
         public static PropertyInfo[] GetConfigurationProperties(this Type type)
         {
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             var properties = type.GetProperties(bindingFlags);
 
             return properties;
@@ -47,6 +56,11 @@ namespace Extensions.Configuration.Object.Internal
                 && (type.Name.Contains("AnonymousType") || type.Name.Contains("AnonType"))
                 && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"))
                 && type.Attributes.HasFlag(TypeAttributes.NotPublic);
+        }
+
+        public static bool IsCompilerGenerated(this MemberInfo member)
+        {
+            return Attribute.IsDefined(member, typeof(CompilerGeneratedAttribute), false);
         }
     }
 }
