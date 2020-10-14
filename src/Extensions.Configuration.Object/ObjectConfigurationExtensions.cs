@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Extensions.Configuration.Object;
 using System;
 
-namespace Extensions.Configuration.Object
+// Note that this namespace is Microsoft.Extensions.Configuration for usability reasons.
+namespace Microsoft.Extensions.Configuration
 {
     /// <summary>
     /// Extension methods for adding <see cref="ObjectConfigurationProvider"/>.
