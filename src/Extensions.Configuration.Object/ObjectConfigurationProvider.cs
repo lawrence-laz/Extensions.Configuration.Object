@@ -1,6 +1,7 @@
 ﻿using Extensions.Configuration.Object.Internal;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 
 namespace Extensions.Configuration.Object
 {
@@ -38,11 +39,40 @@ namespace Extensions.Configuration.Object
                 return;
             }
 
-            if (section is string || section.GetType().IsPrimitive)
+            if (section is string || section.GetType().IsPrimitive) // Simple value.
             {
                 base.Set(currentKey, section.ToString());
             }
-            else
+            else if (section is IDictionary dictionarySection) // Dictionary.
+            {
+                foreach (DictionaryEntry item in dictionarySection)
+                {
+                    var name = item.Key.ToString();
+                    var value = item.Value;
+                    var newKey = string.IsNullOrWhiteSpace(currentKey)
+                        ? name
+                        : $"{currentKey}:{name}";
+
+                    LoadRecursively(newKey, value);
+                }
+            }
+            else if (section is IEnumerable enumerableSection) // Enumerable.
+            {
+                var index = 0;
+                foreach (var item in enumerableSection)
+                {
+                    var name = index.ToString();
+                    var value = item;
+                    var newKey = string.IsNullOrWhiteSpace(currentKey)
+                        ? name
+                        : $"{currentKey}:{name}";
+
+                    LoadRecursively(newKey, value);
+
+                    ++index;
+                }
+            }
+            else // Complex object.
             {
                 foreach (var field in section.GetType().GetConfigurationFields())
                 {
