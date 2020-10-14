@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Company>Laurynas Lazauskas</Company>
+        <Authors>Laurynas Lazauskas</Authors>
         <Product>Extensions.Configuration.Object</Product>
         <Description>A simple way to add configuration using plain objects.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
