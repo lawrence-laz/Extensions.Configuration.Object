@@ -43,6 +43,10 @@ namespace Extensions.Configuration.Object
             {
                 base.Set(currentKey, section.ToString());
             }
+            else if (section is Enum) // Enum.
+            {
+                base.Set(currentKey, Enum.GetName(section.GetType(), section));
+            }
             else if (section is IDictionary dictionarySection) // Dictionary.
             {
                 foreach (DictionaryEntry item in dictionarySection)
