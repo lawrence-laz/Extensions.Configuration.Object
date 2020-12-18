@@ -39,7 +39,9 @@ namespace Extensions.Configuration.Object
                 return;
             }
 
-            if (section is string || section.GetType().IsPrimitive) // Simple value.
+            bool simpleValue = section is string || section.GetType().IsPrimitive 
+                || section is Uri || section is Guid;
+            if (simpleValue)
             {
                 base.Set(currentKey, section.ToString());
             }

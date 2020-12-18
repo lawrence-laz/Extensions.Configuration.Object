@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using System;
 using Xunit;
 
 namespace Extensions.Configuration.Object.UnitTests
@@ -9,6 +10,8 @@ namespace Extensions.Configuration.Object.UnitTests
         [Fact]
         public void AddObject_WithAnonymousObject_ShouldLoadFieldsIntoConfiguration()
         {
+            var expectedGuid = new Guid(); 
+
             var configuration = new ConfigurationBuilder()
                 .AddObject(new
                 {
@@ -27,7 +30,8 @@ namespace Extensions.Configuration.Object.UnitTests
                             Microsoft = "Warning"
                         }
                     },
-                    AllowedHosts = "*"
+                    AllowedHosts = new Uri("http://localhost"),
+                    ClientId = expectedGuid
                 })
                 .Build();
 
@@ -37,7 +41,8 @@ namespace Extensions.Configuration.Object.UnitTests
             configuration["MyKey"].Should().Be("My appsettings.json Value");
             configuration["Logging:LogLevel:Default"].Should().Be("Information");
             configuration["Logging:LogLevel:Microsoft"].Should().Be("Warning");
-            configuration["AllowedHosts"].Should().Be("*");
+            configuration["AllowedHosts"].Should().Be("http://localhost/");
+            configuration["ClientId"].Should().Be(expectedGuid.ToString());
         }
     }
 }
