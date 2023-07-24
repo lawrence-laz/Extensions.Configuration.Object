@@ -51,7 +51,7 @@ namespace Extensions.Configuration.Object
             }
 
             bool simpleValue = section is string || section.GetType().IsPrimitive 
-                || section is Uri || section is Guid;
+                || section is Uri || section is Guid || section is TimeSpan;
             if (simpleValue)
             {
                 base.Set(currentKey, section.ToString());
