@@ -32,7 +32,10 @@ namespace Extensions.Configuration.Object
                 throw new ArgumentNullException($"Property {ConfigurationObject} needs to be set before calling method {nameof(Build)}.");
             }
 
-            return new ObjectConfigurationProvider(ConfigurationObject, ConfigurationKey);
+            return string.IsNullOrEmpty(ConfigurationKey)
+                ? new ObjectConfigurationProvider(ConfigurationObject)
+                : new ObjectConfigurationProvider(ConfigurationObject, ConfigurationKey);
+
         }
     }
 }

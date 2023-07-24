@@ -36,6 +36,12 @@ namespace Extensions.Configuration.Object
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectConfigurationProvider"/> class.
+        /// </summary>
+        /// <param name="configurationObject">The configuration object.</param>
+        public ObjectConfigurationProvider(object configurationObject) => ConfigurationObject = configurationObject ?? throw new ArgumentNullException(nameof(configurationObject));
+
+        /// <summary>
         /// Recursively loads values from <see cref="ConfigurationObject"/> to this provider.
         /// </summary>
         public override void Load()
