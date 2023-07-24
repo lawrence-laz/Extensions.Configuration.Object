@@ -29,11 +29,7 @@ namespace Extensions.Configuration.Object
         /// <param name="configurationObject">Object used as a source for configuration.</param>
         /// <param name="configurationRootKey">The configuration root key.</param>
         /// <exception cref="System.ArgumentNullException">configurationObject</exception>
-        public ObjectConfigurationProvider(object configurationObject, string configurationRootKey)
-        {
-            ConfigurationObject = configurationObject ?? throw new ArgumentNullException(nameof(configurationObject));
-            ConfigurationRootKey = configurationRootKey;
-        }
+        public ObjectConfigurationProvider(object configurationObject, string configurationRootKey) : this(configurationObject) => ConfigurationRootKey = configurationRootKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectConfigurationProvider"/> class.

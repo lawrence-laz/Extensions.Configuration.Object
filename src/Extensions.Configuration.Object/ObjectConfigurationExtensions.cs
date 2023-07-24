@@ -35,6 +35,11 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(configurationObject));
             }
 
+            if (rootKey is null)
+            {
+                throw new ArgumentNullException(nameof(rootKey));
+            }
+
             return builder.Add((ObjectConfigurationSource source) =>
             {
                 source.ConfigurationObject = configurationObject;
