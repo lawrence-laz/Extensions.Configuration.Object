@@ -16,20 +16,33 @@ namespace Extensions.Configuration.Object
         public object ConfigurationObject { get; set; }
 
         /// <summary>
-        /// Creates an instance of <see cref="ObjectConfigurationProvider"/> using the provided configuration object.
+        /// Gets or sets the configuration root key.
+        /// </summary>
+        /// <value>
+        /// The configuration root key.
+        /// </value>
+        public string ConfigurationRootKey { get; set; }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ObjectConfigurationProvider" /> using the provided configuration object.
         /// </summary>
         /// <param name="configurationObject">Object used as a source for configuration.</param>
-        public ObjectConfigurationProvider(object configurationObject)
-        {
-            ConfigurationObject = configurationObject ?? throw new ArgumentNullException(nameof(configurationObject));
-        }
+        /// <param name="configurationRootKey">The configuration root key.</param>
+        /// <exception cref="System.ArgumentNullException">configurationObject</exception>
+        public ObjectConfigurationProvider(object configurationObject, string configurationRootKey) : this(configurationObject) => ConfigurationRootKey = configurationRootKey;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectConfigurationProvider"/> class.
+        /// </summary>
+        /// <param name="configurationObject">The configuration object.</param>
+        public ObjectConfigurationProvider(object configurationObject) => ConfigurationObject = configurationObject ?? throw new ArgumentNullException(nameof(configurationObject));
 
         /// <summary>
         /// Recursively loads values from <see cref="ConfigurationObject"/> to this provider.
         /// </summary>
         public override void Load()
         {
-            LoadRecursively(null, ConfigurationObject);
+            LoadRecursively(ConfigurationRootKey, ConfigurationObject);
         }
 
         private void LoadRecursively(string currentKey, object section)
@@ -40,7 +53,7 @@ namespace Extensions.Configuration.Object
             }
 
             bool simpleValue = section is string || section.GetType().IsPrimitive 
-                || section is Uri || section is Guid;
+                || section is Uri || section is Guid || section is TimeSpan;
             if (simpleValue)
             {
                 base.Set(currentKey, section.ToString());

@@ -12,6 +12,13 @@ namespace Extensions.Configuration.Object
         /// Object used as a source for configuration.
         /// </summary>
         public object ConfigurationObject { get; set; }
+        /// <summary>
+        /// Gets or sets the configuration key.
+        /// </summary>
+        /// <value>
+        /// The configuration key.
+        /// </value>
+        public string ConfigurationKey { get; set; }
 
         /// <summary>
         /// Builds the <see cref="ObjectConfigurationProvider"/> for this source.
@@ -25,7 +32,10 @@ namespace Extensions.Configuration.Object
                 throw new ArgumentNullException($"Property {ConfigurationObject} needs to be set before calling method {nameof(Build)}.");
             }
 
-            return new ObjectConfigurationProvider(ConfigurationObject);
+            return string.IsNullOrEmpty(ConfigurationKey)
+                ? new ObjectConfigurationProvider(ConfigurationObject)
+                : new ObjectConfigurationProvider(ConfigurationObject, ConfigurationKey);
+
         }
     }
 }

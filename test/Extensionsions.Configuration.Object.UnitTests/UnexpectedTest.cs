@@ -19,7 +19,7 @@ namespace Extensions.Configuration.Object.UnitTests
         [Fact]
         public void AddObject_OnNullConfigurationBuilder_ShouldThrow()
         {
-            ConfigurationBuilder sut = null;
+            ConfigurationBuilder sut = default;
 
             sut.Invoking(x => x.AddObject(default))
                 .Should().ThrowExactly<ArgumentNullException>();
