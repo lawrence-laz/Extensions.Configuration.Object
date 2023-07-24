@@ -65,5 +65,41 @@ namespace Extensions.Configuration.Object.UnitTests
             configuration["Logging:LogLevel:Microsoft"].Should().Be("Warning");
             configuration["AllowedHosts"].Should().Be("*");
         }
+
+        [Fact]
+        public void AddObject_WithClassObject_AndRootKey_ShouldLoadFieldsIntoConfiguration()
+        {
+            string rootKey = "MyRootKey";
+
+            var configuration = new ConfigurationBuilder()
+                .AddObject(new MyConfiguration
+                {
+                    Position = new PositionConfiguration
+                    {
+                        Title = "Editor",
+                        Name = "Joe Smith",
+                        Age = 33
+                    },
+                    MyKey = "My appsettings.json Value",
+                    Logging = new LoggingConfiguration
+                    {
+                        LogLevel = new LogLevelConfiguration
+                        {
+                            Default = "Information",
+                            Microsoft = "Warning"
+                        }
+                    },
+                    AllowedHosts = "*"
+                }, rootKey)
+                .Build();
+
+            configuration["MyRootKey:Position:Title"].Should().Be("Editor");
+            configuration["MyRootKey:Position:Name"].Should().Be("Joe Smith");
+            configuration["MyRootKey:Position:Age"].Should().Be("33");
+            configuration["MyRootKey:MyKey"].Should().Be("My appsettings.json Value");
+            configuration["MyRootKey:Logging:LogLevel:Default"].Should().Be("Information");
+            configuration["MyRootKey:Logging:LogLevel:Microsoft"].Should().Be("Warning");
+            configuration["MyRootKey:AllowedHosts"].Should().Be("*");
+        }
     }
 }

@@ -10,12 +10,20 @@ namespace Microsoft.Extensions.Configuration
     public static class ObjectConfigurationExtensions
     {
         /// <summary>
-        /// Adds a <see cref="ObjectConfigurationProvider"/> to with a given configuration object.
+        /// Adds a <see cref="ObjectConfigurationProvider" /> to with a given configuration object.
         /// </summary>
-        /// <param name="builder"><see cref="IConfigurationBuilder"/> to add provider to.</param>
+        /// <param name="builder"><see cref="IConfigurationBuilder" /> to add provider to.</param>
         /// <param name="configurationObject">Configuration object with configuration values.</param>
-        /// <returns>Same <see cref="IConfigurationBuilder"/> instance to continue configuration.</returns>
-        public static IConfigurationBuilder AddObject(this IConfigurationBuilder builder, object configurationObject)
+        /// <param name="rootKey">The root key.</param>
+        /// <returns>
+        /// Same <see cref="IConfigurationBuilder" /> instance to continue configuration.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// builder
+        /// or
+        /// configurationObject
+        /// </exception>
+        public static IConfigurationBuilder AddObject(this IConfigurationBuilder builder, object configurationObject, string rootKey = "")
         {
             if (builder is null)
             {
@@ -27,7 +35,11 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(configurationObject));
             }
 
-            return builder.Add((ObjectConfigurationSource source) => source.ConfigurationObject = configurationObject);
+            return builder.Add((ObjectConfigurationSource source) =>
+            {
+                source.ConfigurationObject = configurationObject;
+                source.ConfigurationKey = rootKey;
+            });
         }
     }
 }

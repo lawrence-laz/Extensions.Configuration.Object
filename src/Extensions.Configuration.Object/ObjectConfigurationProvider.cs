@@ -16,12 +16,23 @@ namespace Extensions.Configuration.Object
         public object ConfigurationObject { get; set; }
 
         /// <summary>
-        /// Creates an instance of <see cref="ObjectConfigurationProvider"/> using the provided configuration object.
+        /// Gets or sets the configuration root key.
+        /// </summary>
+        /// <value>
+        /// The configuration root key.
+        /// </value>
+        public string ConfigurationRootKey { get; set; }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ObjectConfigurationProvider" /> using the provided configuration object.
         /// </summary>
         /// <param name="configurationObject">Object used as a source for configuration.</param>
-        public ObjectConfigurationProvider(object configurationObject)
+        /// <param name="configurationRootKey">The configuration root key.</param>
+        /// <exception cref="System.ArgumentNullException">configurationObject</exception>
+        public ObjectConfigurationProvider(object configurationObject, string configurationRootKey)
         {
             ConfigurationObject = configurationObject ?? throw new ArgumentNullException(nameof(configurationObject));
+            ConfigurationRootKey = configurationRootKey;
         }
 
         /// <summary>
@@ -29,7 +40,7 @@ namespace Extensions.Configuration.Object
         /// </summary>
         public override void Load()
         {
-            LoadRecursively(null, ConfigurationObject);
+            LoadRecursively(ConfigurationRootKey, ConfigurationObject);
         }
 
         private void LoadRecursively(string currentKey, object section)
