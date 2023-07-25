@@ -18,6 +18,8 @@
         <RepositoryType>git</RepositoryType>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconUrl />
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

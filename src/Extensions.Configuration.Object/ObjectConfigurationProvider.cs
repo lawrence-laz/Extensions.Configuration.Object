@@ -21,7 +21,7 @@ namespace Extensions.Configuration.Object
         /// <value>
         /// The configuration root key.
         /// </value>
-        public string ConfigurationRootKey { get; set; }
+        public string? ConfigurationRootKey { get; set; }
 
         /// <summary>
         /// Creates an instance of <see cref="ObjectConfigurationProvider" /> using the provided configuration object.
@@ -45,7 +45,7 @@ namespace Extensions.Configuration.Object
             LoadRecursively(ConfigurationRootKey, ConfigurationObject);
         }
 
-        private void LoadRecursively(string currentKey, object section)
+        private void LoadRecursively(string? currentKey, object section)
         {
             if (section is null)
             {
@@ -56,10 +56,20 @@ namespace Extensions.Configuration.Object
                 || section is Uri || section is Guid || section is TimeSpan;
             if (simpleValue)
             {
+                if (currentKey is null)
+                {
+                    throw new InvalidOperationException($"Cannot set a value for a null key.");
+                }
+
                 base.Set(currentKey, section.ToString());
             }
             else if (section is Enum) // Enum.
             {
+                if (currentKey is null)
+                {
+                    throw new InvalidOperationException($"Cannot set a value for a null key.");
+                }
+
                 base.Set(currentKey, Enum.GetName(section.GetType(), section));
             }
             else if (section is IDictionary dictionarySection) // Dictionary.
