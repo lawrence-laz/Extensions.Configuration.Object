@@ -1,0 +1,6 @@
+{
+    "dotnet.defaultSolution": "Extensions.Configuration.Object.sln",
+    "cSpell.words": [
+        "Xunit"
+    ]
+}
