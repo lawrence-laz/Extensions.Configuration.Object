@@ -18,12 +18,11 @@ namespace Microsoft.Extensions.Configuration
         /// <returns>
         /// Same <see cref="IConfigurationBuilder" /> instance to continue configuration.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// builder
-        /// or
-        /// configurationObject
-        /// </exception>
-        public static IConfigurationBuilder AddObject(this IConfigurationBuilder builder, object configurationObject, string rootKey)
+        /// <exception cref="ArgumentNullException"> builder or configurationObject</exception>
+        public static IConfigurationBuilder AddObject(
+            this IConfigurationBuilder builder,
+            object configurationObject,
+            string rootKey)
         {
             if (builder is null)
             {
@@ -55,10 +54,10 @@ namespace Microsoft.Extensions.Configuration
         /// <returns>
         /// Same <see cref="IConfigurationBuilder" /> instance to continue configuration.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">builder
-        /// or
-        /// configurationObject</exception>
-        public static IConfigurationBuilder AddObject(this IConfigurationBuilder builder, object configurationObject)
+        /// <exception cref="ArgumentNullException">builder or configurationObject</exception>
+        public static IConfigurationBuilder AddObject(
+            this IConfigurationBuilder builder,
+            object configurationObject)
         {
             if (builder is null)
             {

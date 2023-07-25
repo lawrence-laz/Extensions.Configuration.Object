@@ -28,7 +28,7 @@ namespace Extensions.Configuration.Object
         /// </summary>
         /// <param name="configurationObject">Object used as a source for configuration.</param>
         /// <param name="configurationRootKey">The configuration root key.</param>
-        /// <exception cref="System.ArgumentNullException">configurationObject</exception>
+        /// <exception cref="ArgumentNullException">configurationObject</exception>
         public ObjectConfigurationProvider(object configurationObject, string configurationRootKey) : this(configurationObject) => ConfigurationRootKey = configurationRootKey;
 
         /// <summary>
