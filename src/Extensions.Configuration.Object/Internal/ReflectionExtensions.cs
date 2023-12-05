@@ -45,6 +45,13 @@ namespace Extensions.Configuration.Object.Internal
         {
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             var properties = type.GetProperties(bindingFlags);
+            
+            if (!type.IsAnonymous())
+            {
+                return properties
+                    .Where(x => !x.IsCompilerGenerated())
+                    .ToArray();
+            }
 
             return properties;
         }
