@@ -20,7 +20,7 @@ namespace Extensions.Configuration.Object.UnitTests
         }
 
         [Fact]
-        public void AddObject_WithClassObject_ShouldLoadFieldsIntoConfiguration()
+        public void AddObject_WithRecordObject_ShouldLoadFieldsIntoConfiguration()
         {
             var configuration = new ConfigurationBuilder()
                 .AddObject(new MyConfiguration
